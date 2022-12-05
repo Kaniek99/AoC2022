@@ -1,10 +1,8 @@
 package main
 
 import (
-	"bufio"
+	"aoc2022/reading"
 	"fmt"
-	"log"
-	"os"
 )
 
 const (
@@ -23,18 +21,7 @@ func (battle Battle) result() int {
 }
 
 func main() {
-	file, err := os.Open("./day2/input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanLines)
-	data := []string{}
-
-	for scanner.Scan() {
-		data = append(data, scanner.Text())
-	}
-	file.Close()
+	data := reading.ReadFromFile("./day2/input.txt")
 
 	myPoints := 0
 	elfPoints := 0

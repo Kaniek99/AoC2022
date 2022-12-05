@@ -1,27 +1,15 @@
 package main
 
 import (
-	"bufio"
+	"aoc2022/reading"
 	"fmt"
 	"log"
-	"os"
 	"sort"
 	"strconv"
 )
 
 func main() {
-	file, err := os.Open("./day1/input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanLines)
-	data := []string{}
-
-	for scanner.Scan() {
-		data = append(data, scanner.Text())
-	}
-	file.Close()
+	data := reading.ReadFromFile("./day1/input.txt")
 
 	sum := 0
 	sumCalories := []int{}

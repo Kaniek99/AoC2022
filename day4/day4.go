@@ -1,11 +1,10 @@
 package main
 
 import (
-	"bufio"
+	"aoc2022/reading"
 	"fmt"
 	"log"
 	"math"
-	"os"
 	"strconv"
 	"strings"
 )
@@ -41,19 +40,7 @@ func hasAny(firstAssignment, secondAssignment []string) bool {
 }
 
 func main() {
-	file, err := os.Open("./day4/input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanLines)
-	data := []string{}
-
-	for scanner.Scan() {
-		data = append(data, scanner.Text())
-	}
-	file.Close()
-
+	data := reading.ReadFromFile("./day4/input.txt")
 	counter := 0
 	counterForAny := 0
 	for _, elem := range data {

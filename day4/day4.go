@@ -70,5 +70,3 @@ func main() {
 	fmt.Println("overlaps:", counter)
 	fmt.Println("assignments with atleast one same section:", counterForAny)
 }
-
-//710

@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"aoc2022/reading"
+	"errors"
+	"fmt"
+)
 
 type Ship struct {
 	Capacity                int
@@ -8,7 +12,7 @@ type Ship struct {
 	ArrangementOfContainers [][]string
 }
 
-// TODO: change way in which we store containers to keep similar graphic representation (similar to representation in input.txt)
+// TODO: refactor this, implement stack
 func (ship *Ship) createEmptyArrangement() {
 	ship.ArrangementOfContainers = make([][]string, ship.Capacity)
 	for i := range ship.ArrangementOfContainers {
@@ -21,12 +25,12 @@ func (ship *Ship) createEmptyArrangement() {
 	}
 }
 
-func (ship Ship) getContainerAtTheTop(stack int) ( /*container*/ string /*position*/, int) {
+func (ship Ship) getContainerAtTheTop(stack int) (string, int) {
 	for i := ship.Capacity - 1; i >= 0; i-- {
 		if ship.ArrangementOfContainers[i][stack] == "-" {
 			continue
 		} else {
-			return ship.ArrangementOfContainers[i][stack], i
+			return ship.ArrangementOfContainers[i][stack], i // return container, position
 		}
 	}
 	return "-", 0
@@ -66,11 +70,29 @@ func (ship *Ship) changeCapacity(capacity int) {
 	ship.Capacity = capacity
 }
 
+func separateInputAndInstruction(data []string) (int, error) {
+	for i, elem := range data {
+		if elem == "" {
+			return i, nil
+		}
+	}
+	return 0, errors.New("invalid data format")
+}
+
 func main() {
-	// reading.ReadFromFile("./day5/input.txt")
+	data := reading.ReadFromFile("./day5/input.txt")
 	ship := Ship{Capacity: 3, Stacks: 2}
 	ship.createEmptyArrangement()
-	fmt.Println(ship.ArrangementOfContainers)
-	ship.addContainerToStack("A", 1)
-	fmt.Println(ship.ArrangementOfContainers)
+	// fmt.Println(ship.ArrangementOfContainers)
+	// ship.addContainerToStack("A", 1)
+	// fmt.Println(ship.ArrangementOfContainers)
+	// ship.addContainerToStack("B", 1)
+	// fmt.Println(ship.ArrangementOfContainers)
+	separator, err := separateInputAndInstruction(data[:3]) // separator is an index of blank line in input.txt
+	fmt.Println(separator)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 }
